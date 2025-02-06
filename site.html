@@ -161,13 +161,5 @@
 const express = require('express');
 const app = express();
 
-app.use(express.json()); // Permite receber JSON no corpo da requisição
 
-// Criando o endpoint webhook
-app.post('/webhook', (req, res) => {
-    console.log("🚀 Dados recebidos:", req.body); // Exibir os dados recebidos
-    res.sendStatus(200); // Retornar sucesso (200 OK)
-});
-
-app.listen(3000, () => console.log('📡 Webhook rodando na porta 3000'));
 
