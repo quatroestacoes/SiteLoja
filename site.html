@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja Online - Cama, Mesa e Banho</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+
+        header {
+            background-color: #6a0dad;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .search-bar input {
+            width: 50%;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #6a0dad;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+        }
+
+        .search-bar button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            background-color: #6a0dad;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .search-bar button:hover {
+            background-color: #540d9a;
+        }
+
+        .catalog {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin: 20px;
+        }
+
+        .product {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            width: 200px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .product img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .product h3 {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .product p {
+            color: #6a0dad;
+            font-weight: bold;
+        }
+
+        .product button {
+            background-color: #6a0dad;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .product button:hover {
+            background-color: #540d9a;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const products = [
+                { name: "Jogo de Lençóis", price: "R$ 99,90", image: "https://via.placeholder.com/200x150" },
+                { name: "Toalha de Banho", price: "R$ 49,90", image: "https://via.placeholder.com/200x150" },
+                { name: "Cobertor de Microfibra", price: "R$ 149,90", image: "https://via.placeholder.com/200x150" },
+                { name: "Jogo de Guardanapos", price: "R$ 29,90", image: "https://via.placeholder.com/200x150" },
+                { name: "Travesseiro Ortopédico", price: "R$ 79,90", image: "https://via.placeholder.com/200x150" },
+                { name: "Manta de Sofá", price: "R$ 89,90", image: "https://via.placeholder.com/200x150" }
+            ];
+
+            const catalog = document.querySelector(".catalog");
+            const searchInput = document.querySelector(".search-bar input");
+
+            function displayProducts(filteredProducts) {
+                catalog.innerHTML = "";
+                filteredProducts.forEach(product => {
+                    const productDiv = document.createElement("div");
+                    productDiv.className = "product";
+                    productDiv.innerHTML = `
+                        <img src="${product.image}" alt="${product.name}">
+                        <h3>${product.name}</h3>
+                        <p>${product.price}</p>
+                        <button>Adicionar ao Carrinho</button>
+                    `;
+                    catalog.appendChild(productDiv);
+                });
+            }
+
+            displayProducts(products);
+
+            searchInput.addEventListener("keydown", (e) => {
+                if (e.key === "Enter") {
+                    const query = searchInput.value.toLowerCase();
+                    const filteredProducts = products.filter(product =>
+                        product.name.toLowerCase().includes(query)
+                    );
+                    displayProducts(filteredProducts);
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Loja Online - Cama, Mesa e Banho</h1>
+    </header>
+
+    <div class="search-bar">
+        <input type="text" placeholder="Pesquise por produtos...">
+        <button>Pesquisar</button>
+    </div>
+
+    <div class="catalog"></div>
+</body>
+</html>
+<link rel="stylesheet" href="style.css">
+
+const express = require('express');
+const app = express();
+
+app.use(express.json()); // Permite receber JSON no corpo da requisição
+
+// Criando o endpoint webhook
+app.post('/webhook', (req, res) => {
+    console.log("🚀 Dados recebidos:", req.body); // Exibir os dados recebidos
+    res.sendStatus(200); // Retornar sucesso (200 OK)
+});
+
+app.listen(3000, () => console.log('📡 Webhook rodando na porta 3000'));
+
